@@ -1,0 +1,15 @@
+{
+  "name": "intix-fullstack",
+  "version": "1.0.0",
+  "description": "Intix - Your Personal AI Interview Coach (Full Stack)",
+  "scripts": {
+    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd backend && venv\\Scripts\\activate && python main.py",
+    "frontend": "cd frontend && npm run dev",
+    "install-all": "cd backend && pip install -r requirements.txt && cd ../frontend && npm install",
+    "build": "cd frontend && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

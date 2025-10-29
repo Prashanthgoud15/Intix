@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: intix-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: ALLOWED_ORIGINS
+        value: https://intix.netlify.app,http://localhost:5173
