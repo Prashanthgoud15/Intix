@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Dark mode (default Intix appearance) */
+  --color-slate-950: 5 10 24;
+  /* #050A18 */
+  --color-slate-900: 11 18 36;
+  /* #0B1224 */
+  --color-slate-800: 17 26 45;
+  /* #111A2D */
+  --color-slate-700: 51 65 85;
+  /* #334155 */
+  --color-slate-600: 71 85 105;
+  /* #475569 */
+  --color-slate-500: 100 116 139;
+  /* #64748B */
+  --color-slate-400: 148 163 184;
+  /* #94a3b8 */
+  --color-slate-300: 203 213 225;
+  /* #cbd5e1 */
+  --color-slate-200: 226 232 240;
+  /* #e2e8f0 */
+  --color-slate-100: 241 245 249;
+  /* #f1f5f9 */
+  --color-slate-50: 248 250 252;
+  /* #f8fafc */
+
+  --color-white: 255 255 255;
+  /* #ffffff */
+  --color-black: 0 0 0;
+  /* #000000 */
+}
+
+.light {
+  /* Light mode (Verseo-inspired) */
+  --color-slate-950: 247 249 252;
+  /* #F7F9FC - Main background */
+  --color-slate-900: 255 255 255;
+  /* #FFFFFF - Surfaces */
+  --color-slate-800: 241 246 252;
+  /* #F1F6FC - Elevated / Secondary surfaces */
+  --color-slate-700: 226 232 240;
+  /* #E2E8F0 - Borders */
+  --color-slate-600: 148 163 184;
+  /* #94A3B8 */
+  --color-slate-500: 100 116 139;
+  /* #64748B - Secondary text */
+  --color-slate-400: 100 116 139;
+  /* #64748B - Muted text (darker for readability) */
+  --color-slate-300: 71 85 105;
+  /* #475569 - Darker text */
+  --color-slate-200: 51 65 85;
+  /* #334155 - Darker text */
+  --color-slate-100: 30 41 59;
+  /* #1E293B */
+  --color-slate-50: 15 23 42;
+  /* #0F172A */
+
+  --color-white: 15 23 42;
+  /* #0F172A - Primary text */
+  --color-black: 255 255 255;
+  /* #FFFFFF - Invert black */
+}
+
+@layer base {
+  body {
+    @apply bg-slate-950 text-slate-200;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-500 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500/50;
+  }
+
+  .btn-secondary {
+    @apply bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500/50;
+  }
+
+  .card {
+    @apply bg-slate-900 border border-slate-800 rounded-xl p-6 transition-colors duration-200;
+  }
+
+  .metric-card {
+    @apply bg-slate-900 border border-slate-800 rounded-lg p-4 transition-colors duration-200;
+  }
+
+  .gradient-text {
+    @apply text-white;
+    /* Removed gradient text for a cleaner look */
+  }
+
+  .glass-panel {
+    @apply bg-slate-900/80 backdrop-blur-md border border-slate-800;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-950;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-800 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-700;
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(to right, #f0f0f0 4%, #e0e0e0 25%, #f0f0f0 36%);
+  background-size: 1000px 100%;
+}
+
+/* Confidence meter gradient */
+.confidence-gradient {
+  background: linear-gradient(to right,
+      #ef4444 0%,
+      #f59e0b 25%,
+      #eab308 50%,
+      #84cc16 75%,
+      #22c55e 100%);
+}
