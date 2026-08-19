@@ -60,7 +60,7 @@ const ResumeUpload = ({ onResumeAnalyzed, onSkip }) => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-    
+
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       handleFile(e.dataTransfer.files[0]);
     }
@@ -114,7 +114,6 @@ const ResumeUpload = ({ onResumeAnalyzed, onSkip }) => {
       formData.append('job_role', selectedRole);
 
       const profile = await apiService.analyzeResume(file, selectedRole);
-      console.log('Resume analyzed:', profile);
 
       // profile is the saved ResumeProfile document — its _id is what links
       // this resume's generated interview plan to the interview session.
@@ -205,11 +204,10 @@ const ResumeUpload = ({ onResumeAnalyzed, onSkip }) => {
             onDragLeave={handleDrag}
             onDragOver={handleDrag}
             onDrop={handleDrop}
-            className={`border-2 border-dashed rounded-xl p-10 text-center transition-all ${
-              dragActive
+            className={`border-2 border-dashed rounded-xl p-10 text-center transition-all ${dragActive
                 ? 'border-primary-500 bg-primary-50'
                 : 'border-gray-300 hover:border-primary-400'
-            }`}
+              }`}
           >
             <Upload className={`w-12 h-12 mx-auto mb-4 ${dragActive ? 'text-primary-500' : 'text-gray-400'}`} />
             <p className="text-lg font-medium text-gray-700 mb-2">
@@ -300,8 +298,8 @@ const ResumeUpload = ({ onResumeAnalyzed, onSkip }) => {
         {/* Info */}
         <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
           <p className="text-sm text-blue-800">
-            <strong>🎯 How it works:</strong> Your interview will follow a real structure — 
-            starting with warm-up questions, then role-specific technical, HR behavioral, 
+            <strong>🎯 How it works:</strong> Your interview will follow a real structure —
+            starting with warm-up questions, then role-specific technical, HR behavioral,
             resume deep-dive, coding challenges, and a closing question. Just like a real interview!
           </p>
         </div>

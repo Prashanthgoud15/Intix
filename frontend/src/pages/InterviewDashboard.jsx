@@ -200,7 +200,6 @@ const InterviewDashboard = () => {
   const [skipError, setSkipError] = useState(null);
 
   const handleAutoSkip = async () => {
-    console.log("Time's up! Auto-skipping question.");
     if (isRecording) {
       stopRecording();
       // processRecording will be triggered by onstop and will load the next question
@@ -220,7 +219,6 @@ const InterviewDashboard = () => {
     setIsSkipping(true);
     setSkipError(null);
     try {
-      console.log('Skipping question:', currentQuestion._id);
       // A skip has no real answer — do not attach accumulated CV frames to it,
       // otherwise a skipped question can still show eye-contact/posture scores
       // inherited from earlier questions in the session.
@@ -278,22 +276,18 @@ const InterviewDashboard = () => {
       // Start interview if we don't have one
       if (!currentInterviewId) {
         const profileId = resumeSessionId;
-        console.log(`Starting new interview for role: ${selectedRole} with profile: ${profileId}`);
         const interview = await apiService.startInterview(selectedRole, difficulty.toLowerCase(), profileId);
         currentInterviewId = interview._id;
         setInterviewId(currentInterviewId);
       }
 
-      console.log('Fetching next question for interview:', currentInterviewId);
       const response = await apiService.getNextQuestion(currentInterviewId);
 
       if (response.completed) {
-        console.log('Interview completed naturally');
         endSession();
         return;
       }
 
-      console.log('New question received:', response.question);
       setCurrentQuestion(response.question);
     } catch (error) {
       console.error('Error loading question:', error);
@@ -356,7 +350,6 @@ const InterviewDashboard = () => {
   const processRecording = async (audioBlob) => {
     setIsProcessingAnswer(true);
     try {
-      console.log('Processing audio recording...', audioBlob.size, 'bytes');
 
       // Submit answer to backend
       // IMPORTANT: read frameMetricsRef.current here, NOT the `frameMetrics`
@@ -378,8 +371,6 @@ const InterviewDashboard = () => {
         answerDuration || 60
       );
 
-      console.log('Answer evaluated:', result);
-
       // Only increment AFTER the backend confirms the answer was actually
       // saved. Previously this incremented immediately at the start of this
       // function, before the network call even began — if submitAnswer then
@@ -387,7 +378,6 @@ const InterviewDashboard = () => {
       // tell from the UI that the answer hadn't actually been persisted.
       setQuestionsAnswered(prev => {
         const newCount = prev + 1;
-        console.log('Questions answered updated to:', newCount);
         return newCount;
       });
 
@@ -395,7 +385,6 @@ const InterviewDashboard = () => {
       if (result && result.metrics) {
         const wpm = result.metrics.wordsPerMinute || 0;
         const fillerCount = result.metrics.fillerWordCount || 0;
-        console.log(`Session stats - WPM: ${wpm}, Filler words: ${fillerCount}`);
       }
 
       // Automatically load the next question after a successful answer
@@ -419,7 +408,6 @@ const InterviewDashboard = () => {
     if (streamRef.current) {
       streamRef.current.getTracks().forEach(track => {
         track.stop();
-        console.log(`Stopped track: ${track.kind}`);
       });
       streamRef.current = null;
     }
@@ -448,7 +436,6 @@ const InterviewDashboard = () => {
 
   // End session and navigate to report
   const endSession = async () => {
-    console.log('Ending session...');
 
     setIsEndingSession(true);
 
@@ -478,13 +465,7 @@ const InterviewDashboard = () => {
         frame_metrics: frameMetrics
       };
 
-      console.log('Sending session data to backend:', {
-        ...sessionData,
-        frame_metrics: `${frameMetrics.length} frames`
-      });
-
       const report = await apiService.endSession(sessionData);
-      console.log('Report generated successfully:', report);
 
       // Navigate to the report's real URL (not just in-memory state) — this
       // is what makes a browser refresh on the report page actually work,

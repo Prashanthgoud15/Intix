@@ -18,8 +18,10 @@ const startServer = async () => {
         logger.info('═'.repeat(60));
         logger.info(`  Environment : ${env.NODE_ENV}`);
         logger.info(`  Port        : ${env.PORT}`);
-        logger.info(`  API Base    : http://localhost:${env.PORT}/api/v1`);
-        logger.info(`  Health      : http://localhost:${env.PORT}/api/v1/health`);
+        if (!env.isProd) {
+            logger.info(`  API Base    : http://localhost:${env.PORT}/api/v1`);
+            logger.info(`  Health      : http://localhost:${env.PORT}/api/v1/health`);
+        }
         logger.info(`  Groq        : ${env.GROQ_API_KEY ? 'configured ✓' : 'MISSING ✗'}`);
         logger.info(`  CORS Origin : ${env.CORS_ORIGIN.join(', ')}`);
         logger.info('═'.repeat(60));

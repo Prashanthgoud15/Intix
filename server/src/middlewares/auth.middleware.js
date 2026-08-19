@@ -47,6 +47,14 @@ export const protect = asyncHandler(async (req, res, next) => {
             );
         }
 
+        // Check if token matches current tokenVersion (handles logout)
+        if (decoded.tokenVersion !== undefined && decoded.tokenVersion !== user.tokenVersion) {
+            throw new ApiError(
+                HttpStatus.UNAUTHORIZED,
+                'Session has been logged out. Please login again.'
+            );
+        }
+
         // Attach user to request
         req.user = user;
         next();

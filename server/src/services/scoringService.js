@@ -334,27 +334,10 @@ class ScoringService {
 
                 // Check if it's a filler word
                 if (this.FILLER_WORDS.includes(wordText)) {
-                    // Check for surrounding pause (e.g., > 0.5s gap before or after)
-                    let isFiller = false;
-
-                    // Short token check (most fillers are short)
-                    if (wordText.length <= 4 || ['actually', 'basically', 'literally'].includes(wordText)) {
-                        const prevWord = i > 0 ? wordsArray[i - 1] : null;
-                        const nextWord = i < wordsArray.length - 1 ? wordsArray[i + 1] : null;
-
-                        const pauseBefore = prevWord ? (wordObj.start - prevWord.end) : 0;
-                        const pauseAfter = nextWord ? (nextWord.start - wordObj.end) : 0;
-
-                        // If there's a noticeable pause around the word, it's likely a filler
-                        if (pauseBefore > 0.3 || pauseAfter > 0.3) {
-                            isFiller = true;
-                        }
-                    }
-
-                    if (isFiller) {
-                        fillerAnalysis[wordText] = (fillerAnalysis[wordText] || 0) + 1;
-                        totalFillerCount++;
-                    }
+                    // Count all occurrences of filler words, regardless of pauses.
+                    // This matches user expectations better than strict pause checking.
+                    fillerAnalysis[wordText] = (fillerAnalysis[wordText] || 0) + 1;
+                    totalFillerCount++;
                 }
             }
         } else {
@@ -379,7 +362,9 @@ class ScoringService {
         }
 
         if (repetitionCount > 0) {
-            fillerAnalysis['[word repetitions]'] = repetitionCount;
+            // We still add to totalFillerCount to penalize repetitions,
+            // but we don't add the literal string '[word repetitions]' to the breakdown
+            // so it doesn't show up as a weird bubble in the UI.
             totalFillerCount += repetitionCount;
         }
 

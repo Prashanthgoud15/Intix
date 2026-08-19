@@ -7,6 +7,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import mongoSanitize from 'express-mongo-sanitize';
+import xss from 'xss-clean';
 import cookieParser from 'cookie-parser';
 import { v4 as uuidv4 } from 'uuid';
 import swaggerUi from 'swagger-ui-express';
@@ -21,6 +22,9 @@ import { ApiError } from './src/utils/ApiError.js';
 import { HttpStatus } from './src/constants/index.js';
 
 const app = express();
+
+// Trust the reverse proxy (Render) so rate limiters use the real client IP
+app.set('trust proxy', 1);
 
 // ── 1. Security headers ────────────────────────────────────────────────────
 app.use(helmet());
@@ -45,6 +49,9 @@ app.use(cookieParser());
 
 // ── 6. NoSQL injection prevention ─────────────────────────────────────────
 app.use(mongoSanitize());
+
+// ── 6b. XSS Protection ────────────────────────────────────────────────────
+app.use(xss());
 
 // ── 7. Global rate limiter ────────────────────────────────────────────────
 app.use(globalLimiter);

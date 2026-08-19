@@ -39,7 +39,7 @@ Intix/
 | PDF Parsing | pdf-parse (in-memory) |
 | Validation | Zod |
 | Frontend | React 18 + Vite + Tailwind CSS |
-| Deploy | Render.com (server) + Netlify/Vercel (frontend) |
+| Deploy | Render.com (server) + Vercel (frontend) |
 
 ---
 
@@ -143,16 +143,18 @@ The `server/render.yaml` is pre-configured:
 3. Render auto-detects `render.yaml` and creates the service
 4. Add secret env vars in the Render dashboard (marked `sync: false`)
 
-### Frontend → Netlify
+### Frontend → Vercel
 
-```bash
-cd frontend
-npm run build
-# Drag the dist/ folder to netlify.com/drop
-# Or: netlify deploy --prod --dir=dist
-```
+The `frontend/vercel.json` is pre-configured with the necessary SPA rewrite rules.
 
-Set `VITE_API_URL=https://your-render-service.onrender.com/api/v1` in Netlify's env settings.
+1. Push to GitHub
+2. Go to [vercel.com](https://vercel.com) → **Add New Project** → **Import repo**
+3. Framework Preset: **Vite**
+4. Root Directory: **frontend**
+5. Build Command: `npm run build`
+6. Output Directory: `dist`
+7. Add `VITE_API_URL=https://your-render-service.onrender.com/api/v1` in Environment Variables.
+8. Deploy!
 
 ---
 

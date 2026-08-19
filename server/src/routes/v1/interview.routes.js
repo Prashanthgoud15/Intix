@@ -35,8 +35,8 @@ const upload = multer({
 // All interview routes require authentication
 router.use(protect);
 
-// Start a new interview
-router.post('/', interviewController.startInterview);
+// Start a new interview (generates questions via AI)
+router.post('/', aiLimiter, interviewController.startInterview);
 
 // Get next question
 router.get('/:id/next-question', interviewController.getNextQuestion);
