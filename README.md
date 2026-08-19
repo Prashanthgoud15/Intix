@@ -84,30 +84,47 @@ MediaPipe runs entirely in the browser (100% private) to track facial landmarks 
 
 ## 📊 Reports & Progress Dashboard
 
-Instead of just a score, Intix provides a comprehensive breakdown of your performance.
+Intix doesn't just finish an interview. It produces a useful, actionable performance report.
 
-> **🎯 Scoring & Metrics**
-> 
-> `Overall Score: 85/100` | `Questions Answered: 15/15`
-> 
-> Detailed breakdown of performance across technical, behavioral, and HR questions.
+<table>
+<tr>
+<td width="60%">
 
-> **🗣️ Speech & Vision Analysis**
-> 
-> `Pace: 120 WPM` | `Filler Words: 4` | `Eye Contact: 92%` | `Confidence: 88%`
-> 
-> Real-time tracking of your delivery and body language.
+```text
+┌───────────────────────────────────────────────┐
+│ INTIX INTERVIEW REPORT              85.0%     │
+│ Full Stack Developer                          │
+├───────────────────────────────────────────────┤
+│ Answer Quality     ████████░░   82            │
+│ Confidence         █████████░   91            │
+│ Speech Pace        ███████░░░   74            │
+│ Filler Words       4                          │
+├───────────────────────────────────────────────┤
+│ ✓ What went well                              │
+│   Strong technical understanding              │
+│                                               │
+│ ⚠ What to improve                             │
+│   Improve clarity and answer structure        │
+└───────────────────────────────────────────────┘
+```
 
-> **💡 Actionable Feedback**
-> 
-> ✅ **Strengths:** Clear communication, strong technical knowledge.<br/>
-> ⚠️ **To Improve:** Reduce filler words, maintain eye contact.
-> 
-> Question-by-question tips and recommendations.
+</td>
+<td width="40%">
 
-> **📈 Tracking & Export**
-> 
-> Track your historical performance trends and download structured **PDF Reports** for offline review.
+**Report Capabilities:**
+- Overall score
+- Question-level scores
+- Filler words
+- Speech metrics
+- Confidence / visual metrics
+- Strengths
+- Areas to improve
+- AI recommendations
+- Downloadable PDF
+
+</td>
+</tr>
+</table>
 
 ---
 
