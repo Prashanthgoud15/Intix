@@ -86,36 +86,28 @@ MediaPipe runs entirely in the browser (100% private) to track facial landmarks 
 
 Instead of just a score, Intix provides a comprehensive breakdown of your performance.
 
-<table>
-  <tr>
-    <td width="50%">
-      <b>🎯 Scoring & Metrics</b><br/>
-      • Overall Interview Score<br/>
-      • Question-level Breakdown<br/>
-      • Answered vs. Skipped Ratio
-    </td>
-    <td width="50%">
-      <b>🗣️ Speech & Vision</b><br/>
-      • Words Per Minute (Pace)<br/>
-      • Filler Word Count (um, uh, like)<br/>
-      • Confidence & Eye Contact %
-    </td>
-  </tr>
-  <tr>
-    <td width="50%">
-      <b>💡 Actionable Feedback</b><br/>
-      • Identified Strengths<br/>
-      • Areas for Improvement<br/>
-      • Question-by-Question Tips
-    </td>
-    <td width="50%">
-      <b>📈 Tracking & Export</b><br/>
-      • Historical Performance Trends<br/>
-      • Previous Session Archive<br/>
-      • Downloadable PDF Reports
-    </td>
-  </tr>
-</table>
+> **🎯 Scoring & Metrics**
+> 
+> `Overall Score: 85/100` | `Questions Answered: 15/15`
+> 
+> Detailed breakdown of performance across technical, behavioral, and HR questions.
+
+> **🗣️ Speech & Vision Analysis**
+> 
+> `Pace: 120 WPM` | `Filler Words: 4` | `Eye Contact: 92%` | `Confidence: 88%`
+> 
+> Real-time tracking of your delivery and body language.
+
+> **💡 Actionable Feedback**
+> 
+> ✅ **Strengths:** Clear communication, strong technical knowledge.<br/>
+> ⚠️ **To Improve:** Reduce filler words, maintain eye contact.
+> 
+> Question-by-question tips and recommendations.
+
+> **📈 Tracking & Export**
+> 
+> Track your historical performance trends and download structured **PDF Reports** for offline review.
 
 ---
 
