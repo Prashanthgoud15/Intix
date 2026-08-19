@@ -19,7 +19,7 @@ import {
   RefreshCw
 } from 'lucide-react';
 import apiService from '../services/api';
-import { captureVideoFrame, blobToBase64, generateSessionId, formatDuration } from '../utils/helpers';
+import { generateSessionId, formatDuration } from '../utils/helpers';
 import useClientCV from '../hooks/useClientCV';
 
 const InterviewDashboard = () => {
@@ -37,7 +37,9 @@ const InterviewDashboard = () => {
   // recording.
   const processingPromiseRef = useRef(null);
   const audioChunksRef = useRef([]);
+  // eslint-disable-next-line no-unused-vars
   const frameIntervalRef = useRef(null);
+
 
   // State management
   const [stream, setStream] = useState(null);
@@ -64,16 +66,22 @@ const InterviewDashboard = () => {
 
   // Read state from InterviewSetup
   const setupState = location.state || {};
+  // eslint-disable-next-line no-unused-vars
   const [resumeSessionId, setResumeSessionId] = useState(setupState.resumeSessionId || null);
+  // eslint-disable-next-line no-unused-vars
   const [selectedRole, setSelectedRole] = useState(setupState.role || 'General');
+  // eslint-disable-next-line no-unused-vars
   const [difficulty, setDifficulty] = useState(setupState.difficulty || 'Medium');
+  // eslint-disable-next-line no-unused-vars
   const [candidateProfile, setCandidateProfile] = useState(null);
 
   // Session data
   const [sessionId] = useState(generateSessionId());
   const [interviewId, setInterviewId] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [questionHistory, setQuestionHistory] = useState([]);
+
   const [isLoadingQuestion, setIsLoadingQuestion] = useState(false);
   const [questionLoadError, setQuestionLoadError] = useState(null);
   const [sessionDuration, setSessionDuration] = useState(0);
@@ -82,9 +90,13 @@ const InterviewDashboard = () => {
   // Real-time metrics
   const [isEndingSession, setIsEndingSession] = useState(false);
 
+
+
+  // eslint-disable-next-line no-unused-vars
   const [transcriptions, setTranscriptions] = useState([]);
 
   // Phase 9: Advanced Analytics & Strict Flow Enforcement
+  // eslint-disable-next-line no-unused-vars
   const [tabSwitches, setTabSwitches] = useState(0);
   const [showTabWarning, setShowTabWarning] = useState(false);
   const [answerDuration, setAnswerDuration] = useState(0);
@@ -181,6 +193,7 @@ const InterviewDashboard = () => {
       }, 1000);
     }
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questionTimeLeft, isEndingSession, isRecording]);
 
   const [isSkipping, setIsSkipping] = useState(false);
@@ -282,7 +295,6 @@ const InterviewDashboard = () => {
 
       console.log('New question received:', response.question);
       setCurrentQuestion(response.question);
-      setQuestionHistory(prev => [...prev, response.question]);
     } catch (error) {
       console.error('Error loading question:', error);
       console.error('Error details:', error.response?.data || error.message);
@@ -463,14 +475,12 @@ const InterviewDashboard = () => {
         total_duration: sessionDuration,
         frames_analyzed: frameMetrics.length,
         questions_answered: questionsAnswered,
-        transcriptions: transcriptions,
         frame_metrics: frameMetrics
       };
 
       console.log('Sending session data to backend:', {
         ...sessionData,
-        frame_metrics: `${frameMetrics.length} frames`,
-        transcriptions: `${transcriptions.length} transcriptions`
+        frame_metrics: `${frameMetrics.length} frames`
       });
 
       const report = await apiService.endSession(sessionData);
@@ -580,7 +590,7 @@ const InterviewDashboard = () => {
             <AlertCircle className="w-6 h-6" />
             <div>
               <p className="font-bold">Pacing Suggestion</p>
-              <p className="text-sm text-yellow-900">You've been speaking for over 2 minutes. Try to wrap up your answer.</p>
+              <p className="text-sm text-yellow-900">You&apos;ve been speaking for over 2 minutes. Try to wrap up your answer.</p>
             </div>
           </motion.div>
         )}
@@ -700,7 +710,7 @@ const InterviewDashboard = () => {
             ) : (
               <div className="text-center py-8">
                 <AlertCircle className="w-12 h-12 text-slate-500 mx-auto mb-2" />
-                <p className="text-slate-400">Click "Start Interview" to begin</p>
+                <p className="text-slate-400">Click &quot;Start Interview&quot; to begin</p>
               </div>
             )}
           </div>

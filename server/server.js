@@ -12,7 +12,7 @@ const startServer = async () => {
     // Connect to MongoDB before accepting traffic
     await connectDB();
 
-    const server = app.listen(env.PORT, () => {
+    const server = app.listen(env.PORT, '0.0.0.0', () => {
         logger.info('═'.repeat(60));
         logger.info('  Intix AI Interview Coach — Express Server v1.0');
         logger.info('═'.repeat(60));

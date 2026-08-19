@@ -42,7 +42,7 @@ const ReportPage = () => {
       }
     };
     fetchReport();
-  }, [reportId]);
+  }, [reportId, report]);
 
   const handleDownloadPDF = () => {
     if (!report) return;
@@ -147,7 +147,7 @@ const ReportPage = () => {
 
     drawMetric('Questions Answered', formatVal(metrics.questionsAnswered), 110, 105);
     drawMetric('Questions Skipped', formatVal(metrics.questionsSkipped), 110, 115);
-    drawMetric('Speech Pace', formatVal(Math.round(metrics.averageWpm), ' WPM'), 110, 125);
+    drawMetric('Speech Pace', metrics.averageWpm != null ? `${Math.round(metrics.averageWpm)} WPM` : 'N/A', 110, 125);
     drawMetric('Filler Words', formatVal(metrics.totalFillerWords), 110, 135);
 
     // Speech Analysis
@@ -246,6 +246,31 @@ const ReportPage = () => {
       currentY += 7;
     }
 
+    currentY += 8;
+
+    // Final recommendations
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...colors.primary);
+    doc.text('Final Recommendations', 20, currentY);
+    currentY += 8;
+
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...colors.textMain);
+    const recommendations = feedback.recommendations || [];
+    if (recommendations.length > 0) {
+      recommendations.forEach(r => {
+        const lines = doc.splitTextToSize(`• ${r}`, 165);
+        doc.text(lines, 25, currentY);
+        currentY += lines.length * 5 + 2;
+      });
+    } else {
+      doc.setTextColor(...colors.textMuted);
+      doc.text('No specific recommendations recorded.', 25, currentY);
+      currentY += 7;
+    }
+
     // --- PAGE 3+: QUESTION BY QUESTION ---
     if (questions.length > 0) {
       doc.addPage();
@@ -283,8 +308,13 @@ const ReportPage = () => {
         const aLines = doc.splitTextToSize(`Answer: ${cleanText(q.answerText) || '[Skipped]'}`, 160);
 
         const fLines = q.feedback ? doc.splitTextToSize(`Evaluation: ${cleanText(q.feedback)}`, 160) : [];
+        const sLines = q.strengths?.length > 0 ? doc.splitTextToSize(`Strengths: ${q.strengths.map(cleanText).join(', ')}`, 160) : [];
+        const iLines = q.areasForImprovement?.length > 0 ? doc.splitTextToSize(`Areas for Improvement: ${q.areasForImprovement.map(cleanText).join(', ')}`, 160) : [];
 
-        const boxHeight = 15 + (qLines.length * 5) + (aLines.length * 5) + (fLines.length > 0 ? 5 + (fLines.length * 5) : 0);
+        const boxHeight = 15 + (qLines.length * 5) + (aLines.length * 5) +
+          (fLines.length > 0 ? 5 + (fLines.length * 5) : 0) +
+          (sLines.length > 0 ? 5 + (sLines.length * 5) : 0) +
+          (iLines.length > 0 ? 5 + (iLines.length * 5) : 0);
 
         // If box doesn't fit on this page, move to next
         if (qY + boxHeight > 280) {
@@ -321,6 +351,20 @@ const ReportPage = () => {
         if (fLines.length > 0) {
           doc.setTextColor(...colors.textMain);
           doc.text(fLines, 25, currentLineY);
+          currentLineY += (fLines.length * 5) + 2;
+        }
+
+        // Strengths
+        if (sLines.length > 0) {
+          doc.setTextColor(...colors.success);
+          doc.text(sLines, 25, currentLineY);
+          currentLineY += (sLines.length * 5) + 2;
+        }
+
+        // Areas for Improvement
+        if (iLines.length > 0) {
+          doc.setTextColor(...colors.warning);
+          doc.text(iLines, 25, currentLineY);
         }
 
         qY += boxHeight + 10;
@@ -375,7 +419,7 @@ const ReportPage = () => {
   // Prepare Question Scores Data
   const questionScoresData = report.questionSummaries?.map((q, i) => ({
     name: `Q${i + 1}`,
-    score: q.score != null ? q.score : 0,
+    score: q.score != null ? q.score : null,
   })) || [];
 
   return (
@@ -475,7 +519,7 @@ const ReportPage = () => {
                 <Tooltip
                   contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '0.5rem', color: '#f8fafc' }}
                   cursor={{ fill: '#1e293b' }}
-                  formatter={(value) => [`${value}/100`, 'Score']}
+                  formatter={(value) => [value != null ? `${value}/100` : 'N/A', 'Score']}
                 />
                 <Bar dataKey="score" radius={[4, 4, 0, 0]}>
                   {questionScoresData.map((entry, index) => (
@@ -601,7 +645,7 @@ const ReportPage = () => {
                 <div>
                   <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Your Answer</div>
                   <p className="text-slate-300 text-sm leading-relaxed bg-slate-950/50 p-4 rounded-lg border border-slate-800/50">
-                    {q.userAnswer || <span className="italic text-slate-500">Skipped or no answer provided.</span>}
+                    {q.answerText || <span className="italic text-slate-500">Skipped or no answer provided.</span>}
                   </p>
                 </div>
 
@@ -611,6 +655,28 @@ const ReportPage = () => {
                     <p className="text-slate-300 text-sm leading-relaxed">
                       {q.feedback}
                     </p>
+                  </div>
+                )}
+
+                {q.strengths && q.strengths.length > 0 && (
+                  <div>
+                    <div className="text-xs font-semibold text-emerald-500 uppercase tracking-wider mb-2">Strengths</div>
+                    <ul className="list-disc list-inside text-slate-300 text-sm leading-relaxed space-y-1">
+                      {q.strengths.map((strength, i) => (
+                        <li key={i}>{strength}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {q.areasForImprovement && q.areasForImprovement.length > 0 && (
+                  <div>
+                    <div className="text-xs font-semibold text-amber-500 uppercase tracking-wider mb-2">Areas for Improvement</div>
+                    <ul className="list-disc list-inside text-slate-300 text-sm leading-relaxed space-y-1">
+                      {q.areasForImprovement.map((area, i) => (
+                        <li key={i}>{area}</li>
+                      ))}
+                    </ul>
                   </div>
                 )}
               </div>

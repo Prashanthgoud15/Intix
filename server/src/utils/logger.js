@@ -30,6 +30,8 @@ const logger = createLogger({
     level: env.isDev ? 'debug' : 'info',
     format: env.isProd ? prodFormat : devFormat,
     transports: [
+        // Always write to console (stdout/stderr) for Render/production
+        new transports.Console(),
         // Always write to files
         new transports.File({
             filename: 'logs/error.log',
@@ -48,10 +50,5 @@ const logger = createLogger({
         new transports.File({ filename: 'logs/rejections.log' }),
     ],
 });
-
-// Console transport in development
-if (!env.isProd) {
-    logger.add(new transports.Console());
-}
 
 export default logger;

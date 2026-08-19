@@ -123,7 +123,7 @@ const DashboardPage = () => {
                     ) : (
                         <div>
                             <p className="text-sm text-slate-300 leading-relaxed mb-6">
-                                Start your first interview and we'll build your performance profile.
+                                Start your first interview and we&apos;ll build your performance profile.
                             </p>
                             <Button variant="secondary" size="sm" className="w-full" onClick={() => navigate('/interview/setup')}>
                                 Start Interview

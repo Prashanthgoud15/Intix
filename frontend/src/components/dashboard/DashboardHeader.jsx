@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Sparkles, User, Settings, LogOut, ChevronDown, Menu, X } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import apiService from '../../services/api';
 
 const DashboardHeader = () => {
     const { user, logout } = useAuth();

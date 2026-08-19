@@ -61,6 +61,14 @@ const useClientCV = (videoRef, isSessionActive) => {
         initMediaPipe();
     }, []);
 
+    // Updates both the state (for live UI display / re-renders) and the ref
+    // (for any consumer that needs the current value without depending on
+    // React's render cycle — see the frameMetricsRef comment above).
+    const pushFrame = useCallback((frameData) => {
+        frameMetricsRef.current = [...frameMetricsRef.current, frameData];
+        setFrameMetrics(frameMetricsRef.current);
+    }, []);
+
     const analyzeFrame = useCallback(() => {
         const video = videoRef.current;
         const landmarker = faceLandmarkerRef.current;
@@ -149,7 +157,7 @@ const useClientCV = (videoRef, isSessionActive) => {
         } catch (error) {
             console.error("Error analyzing frame:", error);
         }
-    }, [videoRef]);
+    }, [videoRef, pushFrame]);
 
     useEffect(() => {
         if (isSessionActive) {
@@ -167,13 +175,6 @@ const useClientCV = (videoRef, isSessionActive) => {
         };
     }, [isSessionActive, analyzeFrame]);
 
-    // Updates both the state (for live UI display / re-renders) and the ref
-    // (for any consumer that needs the current value without depending on
-    // React's render cycle — see the frameMetricsRef comment above).
-    const pushFrame = useCallback((frameData) => {
-        frameMetricsRef.current = [...frameMetricsRef.current, frameData];
-        setFrameMetrics(frameMetricsRef.current);
-    }, []);
 
     const resetFrameMetrics = useCallback(() => {
         frameMetricsRef.current = [];

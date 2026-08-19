@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Video, Mic, Upload, FileText, CheckCircle, Loader2, AlertCircle, Briefcase, Settings2, Target, Play } from 'lucide-react';
+import { Video, Mic, Upload, FileText, CheckCircle, Loader2, AlertCircle, Briefcase, Target, Play } from 'lucide-react';
 import Button from '../components/ui/Button';
 import apiService from '../services/api';
 
@@ -112,7 +112,7 @@ const InterviewSetup = () => {
                 stream.getTracks().forEach(track => track.stop());
             }
         };
-    }, [step]);
+    }, [step, stream]);
 
     const handleStartInterview = () => {
         if (stream) {

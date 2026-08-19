@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Skeleton = ({ className = '', ...props }) => {
     return (
         <div

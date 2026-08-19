@@ -10,9 +10,6 @@ import {
   Video,
   Target,
   FileText,
-  Github,
-  Linkedin,
-  Mail,
   Sun,
   Moon
 } from 'lucide-react';
@@ -164,7 +161,7 @@ const LandingPage = () => {
                     <div className="flex justify-between items-end">
                       <div>
                         <div className="text-xl font-bold text-white mb-1">Welcome back, John</div>
-                        <div className="text-sm text-slate-400">Here's your interview performance overview.</div>
+                        <div className="text-sm text-slate-400">Here&apos;s your interview performance overview.</div>
                       </div>
                       <div className="px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg flex items-center gap-2">
                         <Play className="w-4 h-4" /> Start Interview
@@ -353,7 +350,7 @@ const LandingPage = () => {
             <div>
               <h2 className="text-3xl font-bold text-white mb-6">Actionable insights. <br /> Measurable progress.</h2>
               <p className="text-slate-400 text-lg leading-relaxed mb-8">
-                This is one of Intix's strongest differentiators. Receive a visually impressive report that breaks down your performance, highlights your strengths, and gives you question-by-question feedback.
+                This is one of Intix&apos;s strongest differentiators. Receive a visually impressive report that breaks down your performance, highlights your strengths, and gives you question-by-question feedback.
               </p>
               <ul className="space-y-4">
                 {['Overall Score & Breakdown', 'Strengths & Focus Areas', 'Question-by-question analysis', 'Downloadable PDF reports'].map((item, i) => (
