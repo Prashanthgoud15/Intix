@@ -175,6 +175,27 @@ The goal isn't just to finish an interview. It's to understand exactly how you p
 
 ---
 
+### 🎯 Built For
+
+🎓 **Students**
+Prepare for campus placements and technical interviews.
+
+💼 **Job Seekers**
+Practice role-specific interviews before applying.
+
+🚀 **Developers**
+Improve technical communication and presentation.
+
+---
+
+### Ready to practice smarter?
+
+**Practice once. Understand your performance. Come back stronger.**
+
+`Practice → Analyze → Improve`
+
+---
+
 <div align="center">
   
   ### 👨‍💻 Built by Prashanth Goud
