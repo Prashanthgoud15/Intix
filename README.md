@@ -1,175 +1,187 @@
-# Intix
-### Your Personal AI Interview Coach
+<div align="center">
+  
+  # ✦ INTIX ✦
+  
+  [![Typing SVG](https://readme-typing-svg.demolab.com?font=Inter&weight=600&size=22&pause=1000&color=007ACC&center=true&vCenter=true&width=400&lines=Your+Personal+AI+Interview+Coach;Practice.+Analyze.+Improve.)](https://git.io/typing-svg)
 
-Intix is an AI-powered interview coaching platform that helps candidates practice realistic interviews, analyze their speech and presentation, and receive actionable feedback to improve their performance.
-
-> Practice. Analyze. Improve.
+  <p align="center">
+    An AI-powered interview coaching platform that helps candidates practice realistic interviews, analyze their speech and presentation, and receive actionable feedback to improve their performance.
+  </p>
+</div>
 
 ---
 
 ## 🎯 Why Intix?
 
-Most interview preparation platforms focus on questions and answers, but candidates often don't know:
-- whether their answers are strong
-- whether they speak too quickly
-- how many filler words they use
-- whether they appear confident
-- what they should improve
+Most interview preparation platforms focus on providing a list of questions, leaving candidates in the dark about their actual performance. You might know *what* to say, but do you know *how* you're saying it?
 
-**Intix turns interview practice into measurable feedback.**
+**Intix turns interview practice into measurable, actionable feedback.**
 
 ---
 
 ## ✨ Key Features
 
-- 🤖 **Personalized AI Interviews**
-- 📄 **Resume Integration**
-- 🎙️ **Speech Analysis**
-- 👁️ **Visual / Presentation Analysis**
-- 📊 **Question-level & Overall Scoring**
-- 🧠 **AI Feedback**
-- 📈 **Performance History & Trends**
-- 📑 **Structured PDF Reports**
-- 🗣️ **Filler-word analysis**
+<table>
+  <tr>
+    <td>🤖 <b>Personalized AI Interviews</b><br/>Role-aware questions tailored to your resume.</td>
+    <td>🎙️ <b>Speech Analysis</b><br/>Real-time transcription and pace tracking.</td>
+  </tr>
+  <tr>
+    <td>👁️ <b>Visual Analysis</b><br/>Client-side tracking of eye contact and posture.</td>
+    <td>🧠 <b>Intelligent Feedback</b><br/>Objective scoring on clarity and relevance.</td>
+  </tr>
+  <tr>
+    <td>📈 <b>Performance Trends</b><br/>Track your improvement across multiple sessions.</td>
+    <td>📑 <b>Structured Reports</b><br/>Downloadable PDFs with detailed metrics.</td>
+  </tr>
+</table>
 
 ---
 
 ## 🔄 How It Works
 
-```text
-Resume + Target Role
-        ↓
-    AI Interview
-        ↓
-Answer + Speech + Visual Analysis
-        ↓
-   Performance Score
-        ↓
-      AI Feedback
-        ↓
-   Detailed Report
-        ↓
-Improve & Practice Again
+```mermaid
+graph LR
+    A[📄 Resume] --> B(🤖 AI Interview)
+    B --> C{Analysis}
+    C -->|🎙️ Speech| D[Pace & Fillers]
+    C -->|👁️ Vision| E[Posture & Eyes]
+    C -->|🧠 LLM| F[Answer Quality]
+    D --> G((📊 Final Report))
+    E --> G
+    F --> G
+    G -.->|Practice Again| A
+    
+    style A fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#fff
+    style B fill:#0f172a,stroke:#818cf8,stroke-width:2px,color:#fff
+    style C fill:#1e293b,stroke:#94a3b8,stroke-width:2px,color:#fff
+    style D fill:#0f172a,stroke:#34d399,stroke-width:2px,color:#fff
+    style E fill:#0f172a,stroke:#fbbf24,stroke-width:2px,color:#fff
+    style F fill:#0f172a,stroke:#f472b6,stroke-width:2px,color:#fff
+    style G fill:#0f172a,stroke:#2dd4bf,stroke-width:3px,color:#fff
 ```
 
-Intix provides a complete feedback loop, from resume parsing to a final actionable report.
+---
+
+## 🧠 AI & Analysis Engine
+
+<details open>
+<summary><b>💬 Answer Evaluation</b></summary>
+Groq's <code>gpt-oss-20b</code> model evaluates the candidate's answer for relevance, completeness, and clarity against the target job role.
+</details>
+
+<details open>
+<summary><b>🎙️ Speech Pipeline</b></summary>
+Powered by <code>whisper-large-v3-turbo</code> for instant speech-to-text, combined with custom algorithms to detect filler words and calculate Words Per Minute (WPM).
+</details>
+
+<details open>
+<summary><b>👁️ Computer Vision</b></summary>
+MediaPipe runs entirely in the browser (100% private) to track facial landmarks and body pose, calculating eye contact consistency and posture stability.
+</details>
 
 ---
 
-## 🧠 AI & Analysis
+## 📊 Reports & Progress Dashboard
 
-**AI Interview Generation**
-Role-aware interview questions with optional resume context.
+Instead of just a score, Intix provides a comprehensive breakdown of your performance.
 
-**Answer Evaluation**
-Groq's `gpt-oss-20b` model evaluates the candidate's answer for relevance, completeness, and clarity.
-
-**Speech Analysis**
-- Speech-to-text via `whisper-large-v3-turbo`
-- Speech pace / WPM
-- Filler-word detection
-- Speech-related metrics
-
-**Computer Vision**
-MediaPipe runs entirely in the browser to track facial landmarks and body pose, calculating:
-- Eye contact
-- Posture
-- Movement / gesture-related analysis
-
----
-
-## 📊 Reports & Progress
-
-Users receive a comprehensive breakdown of their performance:
-- Overall interview score
-- Question-level scores
-- Answered / skipped counts
-- Speech metrics
-- Filler-word analysis
-- Confidence / visual metrics
-- Strengths
-- Areas to improve
-- Question-by-question feedback
-- Recommendations
-- Downloadable PDF report
-
-Users can also track their **Interview history**, **Performance trends**, and view **Previous reports**.
+<table>
+  <tr>
+    <td width="50%">
+      <b>🎯 Scoring & Metrics</b><br/>
+      • Overall Interview Score<br/>
+      • Question-level Breakdown<br/>
+      • Answered vs. Skipped Ratio
+    </td>
+    <td width="50%">
+      <b>🗣️ Speech & Vision</b><br/>
+      • Words Per Minute (Pace)<br/>
+      • Filler Word Count (um, uh, like)<br/>
+      • Confidence & Eye Contact %
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <b>💡 Actionable Feedback</b><br/>
+      • Identified Strengths<br/>
+      • Areas for Improvement<br/>
+      • Question-by-Question Tips
+    </td>
+    <td width="50%">
+      <b>📈 Tracking & Export</b><br/>
+      • Historical Performance Trends<br/>
+      • Previous Session Archive<br/>
+      • Downloadable PDF Reports
+    </td>
+  </tr>
+</table>
 
 ---
 
 ## ⚙️ Tech Stack
 
-| Category | Technologies |
-| :--- | :--- |
-| **Frontend** | React, Vite, Tailwind CSS, React Router |
-| **UI / Motion** | Framer Motion |
-| **Charts** | Recharts |
-| **Backend** | Node.js, Express |
-| **Database** | MongoDB, Mongoose |
-| **AI** | Groq (`gpt-oss-20b`, `whisper-large-v3-turbo`) |
-| **Speech** | Custom implemented speech pipeline |
-| **Computer Vision** | MediaPipe |
-| **Validation** | Zod |
-| **Authentication** | JWT, bcrypt |
-| **Security** | Helmet, CORS, rate limiting, Mongo sanitization |
+**Frontend:**  
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)
+
+**Backend & Database:**  
+![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+
+**AI & Analysis:**  
+![Groq](https://img.shields.io/badge/Groq-F55036?style=for-the-badge&logo=groq&logoColor=white)
+![MediaPipe](https://img.shields.io/badge/MediaPipe-00A67E?style=for-the-badge&logo=mediapipe&logoColor=white)
 
 ---
 
 ## 🏗️ Architecture
 
-```text
-                    INTIX
-                      │
-          ┌───────────┴───────────┐
-          │                       │
-     React Frontend          Node.js API
-        Vercel                  Render
-                                  │
-                    ┌─────────────┼─────────────┐
-                    │             │             │
-                 MongoDB         Groq       Analysis
-                  Atlas                        Services
+```mermaid
+graph TD
+    UI[React Frontend<br/><i>Vercel</i>] <-->|REST API| API[Node.js API<br/><i>Render</i>]
+    API <-->|Data| DB[(MongoDB Atlas)]
+    API <-->|LLM & Speech| Groq[Groq API]
+    UI -.->|Client-side CV| MP[MediaPipe]
+    
+    style UI fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#fff
+    style API fill:#0f172a,stroke:#22c55e,stroke-width:2px,color:#fff
+    style DB fill:#0f172a,stroke:#10b981,stroke-width:2px,color:#fff
+    style Groq fill:#0f172a,stroke:#f43f5e,stroke-width:2px,color:#fff
+    style MP fill:#0f172a,stroke:#0ea5e9,stroke-width:2px,color:#fff
 ```
-
-The frontend handles the UI and client-side computer vision, while the Node.js backend manages authentication, data persistence, and orchestrates the AI and speech analysis services.
 
 ---
 
 ## 🔐 Security
 
-- JWT authentication
-- Password hashing
-- Protected API routes
-- User ownership checks
-- Zod request validation
-- Rate limiting
-- Helmet security headers
-- CORS
-- MongoDB sanitization
-- Server-side file validation
-- File-size restrictions
-- Environment-based secrets
-- Centralized error handling
+`JWT Auth` `Password Hashing` `Protected Routes` `User Isolation` `Zod Validation` `Rate Limiting` `Helmet Headers` `CORS` `Mongo Sanitization` `In-Memory File Validation`
 
 ---
 
 ## 💡 What Makes Intix Different?
 
-Most interview tools focus mainly on generating questions.
+| Traditional Interview Prep | The Intix Experience |
+| :--- | :--- |
+| ❌ Static lists of generic questions | ✅ Dynamic questions based on **your resume** |
+| ❌ No feedback on delivery | ✅ Real-time **speech pace and filler word** tracking |
+| ❌ Blind to body language | ✅ Live **eye contact and posture** analysis |
+| ❌ Subjective self-evaluation | ✅ Objective **AI-driven scoring** and feedback |
 
-Intix combines:
-Personalization + AI Interview + Answer Evaluation + Speech Analysis + Visual Analysis + Performance Tracking + Actionable Feedback
-
-The goal isn't just to finish an interview. It's to understand how you performed and know what to improve next.
+The goal isn't just to finish an interview. It's to understand exactly how you performed and know precisely what to improve next.
 
 ---
 
-## 👨‍💻 Author
+<div align="center">
+  
+  ### 👨‍💻 Built by Prashanth Goud
+  <p>Computer Science Student · Full-Stack Developer · AI Enthusiast</p>
 
-**Prashanth Goud**
+  [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Prashanthgoud15)
+  [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/prashanth-goud-372485294/)
+  [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:goudprashanth691@gmail.com)
 
-Computer Science Student · Full-Stack Developer · AI Enthusiast
-
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat-square&logo=github&logoColor=white)](https://github.com/Prashanthgoud15)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/prashanth-goud-372485294/)
-[![Email](https://img.shields.io/badge/Email-D14836?style=flat-square&logo=gmail&logoColor=white)](mailto:goudprashanth691@gmail.com)
+</div>
