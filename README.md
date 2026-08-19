@@ -1,198 +1,96 @@
-# Intix — AI Interview Coach
+# Intix — Your Personal AI Interview Coach
 
-> **Intix** is a full-stack AI-powered interview coaching platform. Upload your resume, receive a tailored 15-question interview plan, conduct a mock interview with real-time CV analysis, and get a detailed performance report — all in one place.
-
----
-
-## Architecture
-
-```
-Intix/
-├── backend/          ← Legacy Python (FastAPI) — kept for reference, not deployed
-├── frontend/         ← React + Vite + Tailwind CSS
-│   └── src/
-│       ├── context/  ← AuthContext (JWT + auto-refresh)
-│       ├── hooks/    ← useClientCV (client-side CV analysis)
-│       ├── pages/    ← LandingPage, LoginPage, RegisterPage, InterviewDashboard, HistoryPage, ReportPage
-│       └── services/ ← api.js (axios + authService, interviewService, reportService, …)
-└── server/           ← Node.js / Express / MongoDB — production backend
-    └── src/
-        ├── config/       ← env validation, DB, CORS, Swagger
-        ├── constants/    ← roles, difficulty levels, HTTP codes
-        ├── controllers/  ← auth, ai, resume, interview, report
-        ├── middlewares/  ← JWT auth, error handler, rate limiters, Morgan logger
-        ├── models/       ← User, ResumeProfile, Interview, Report
-        ├── prompts/      ← Groq LLM prompts
-        ├── routes/       ← /api/v1 router
-        ├── services/     ← authService, aiService, resumeService, speechService, scoringService, reportService
-        └── validators/   ← Zod schemas
-```
-
-### Key Tech Stack
-
-| Layer | Tech |
-|---|---|
-| API Server | Node.js 20 + Express 5 |
-| Database | MongoDB Atlas + Mongoose |
-| Auth | JWT (access 15m + refresh 7d) |
-| AI | Groq SDK — openai/gpt-oss-120b + Whisper |
-| PDF Parsing | pdf-parse (in-memory) |
-| Validation | Zod |
-| Frontend | React 18 + Vite + Tailwind CSS |
-| Deploy | Render.com (server) + Vercel (frontend) |
+<div align="center">
+  <p><strong>Master your next interview with real-time AI feedback on your answers, body language, and speech pace.</strong></p>
+</div>
 
 ---
 
-## Getting Started
+## 🎯 The Problem & The Solution
+
+**The Problem:** Preparing for interviews is stressful. Candidates often struggle to get objective, constructive feedback on their performance before the actual interview. Practicing in front of a mirror or recording yourself doesn't provide actionable insights on *what* to improve.
+
+**The Solution:** **Intix** is a full-stack AI-powered interview coaching platform that simulates a real interview environment. It analyzes your resume to generate tailored questions, listens to your answers, and uses computer vision to track your body language. After the session, you receive a comprehensive, actionable report detailing your strengths, areas for improvement, and specific metrics like speech pace and eye contact.
+
+---
+
+## ✨ Key Features
+
+- **📄 Resume-Driven Interviews:** Upload your PDF resume, and Intix will generate a personalized 15-question interview plan based on your experience and the target job role.
+- **🎙️ Real-Time Voice Interaction:** Answer questions naturally using your microphone. Intix uses Groq's Whisper model for lightning-fast transcription.
+- **👁️ Body Language Analysis:** Client-side computer vision (MediaPipe) tracks your eye contact, posture, and gestures in real-time, completely privately.
+- **🧠 Intelligent Feedback:** Groq's LLM evaluates your answers for clarity, relevance, and completeness, providing constructive feedback just like a real interviewer.
+- **📊 Comprehensive Reports:** Get a detailed breakdown of your performance, including a confidence score, filler word analysis, and a downloadable PDF report.
+
+---
+
+## 🛠️ Tech Stack
+
+Built with a modern, scalable, and high-performance stack:
+
+- **Frontend:** React 18, Vite, Tailwind CSS, Framer Motion
+- **Backend:** Node.js 20, Express 5
+- **Database:** MongoDB Atlas, Mongoose
+- **AI & ML:** Groq SDK (Llama 3 / Whisper), MediaPipe (Computer Vision)
+- **Authentication:** Custom JWT (Access & Refresh tokens) with strict security measures
+- **Deployment:** Vercel (Frontend), Render (Backend)
+
+---
+
+## 🚀 Quick Start
 
 ### Prerequisites
 - Node.js ≥ 20
 - MongoDB Atlas cluster (free tier works)
 - Groq API key (free at [console.groq.com](https://console.groq.com))
 
-### 1. Clone the repo
-
+### 1. Clone the repository
 ```bash
 git clone https://github.com/Prashanthgoud15/Intix-v2.git
 cd Intix-v2
 ```
 
-### 2. Set up the server
-
+### 2. Set up the Backend (Server)
 ```bash
 cd server
-cp env.example .env      # Then fill in your values (see table below)
+cp env.example .env      # Fill in your MONGODB_URI, GROQ_API_KEY, and JWT secrets
 npm install
 npm run dev              # Starts on http://localhost:5000
 ```
 
-### 3. Set up the frontend
-
+### 3. Set up the Frontend
 ```bash
 cd frontend
-cp env.example .env      # Set VITE_API_URL=http://localhost:5000/api/v1
+cp env.example .env      # Ensure VITE_API_URL=http://localhost:5000/api/v1
 npm install
 npm run dev              # Starts on http://localhost:5173
 ```
 
 ---
 
-## Environment Variables
+## 🌐 Deployment
 
-### Server (`server/.env`)
+### Backend (Render)
+1. Push your code to GitHub.
+2. Go to [Render](https://render.com) → **New Web Service** → Connect your repository.
+3. Render will auto-detect the `render.yaml` file and configure the service.
+4. Add your secret environment variables (`MONGODB_URI`, `GROQ_API_KEY`, etc.) in the Render dashboard.
 
-| Variable | Required | Example | Description |
-|---|---|---|---|
-| `PORT` | No | `5000` | HTTP port |
-| `NODE_ENV` | No | `development` | `development` or `production` |
-| `MONGODB_URI` | **Yes** | `mongodb+srv://…` | MongoDB connection string |
-| `JWT_ACCESS_SECRET` | **Yes** | `secret123…` | 32+ char random string |
-| `JWT_REFRESH_SECRET` | **Yes** | `secret456…` | 32+ char random string |
-| `JWT_ACCESS_EXPIRY` | No | `15m` | Access token TTL |
-| `JWT_REFRESH_EXPIRY` | No | `7d` | Refresh token TTL |
-| `GROQ_API_KEY` | **Yes** | `gsk_…` | Groq API key |
-| `CORS_ORIGIN` | No | `http://localhost:5173` | Comma-separated allowed origins |
-| `MAX_FILE_SIZE_MB` | No | `10` | Max resume upload size |
-
-### Frontend (`frontend/.env`)
-
-| Variable | Default | Description |
-|---|---|---|
-| `VITE_API_URL` | `http://localhost:5000/api/v1` | Backend API base URL |
-| `VITE_API_TIMEOUT` | `30000` | Request timeout (ms) |
-| `VITE_DEBUG` | `false` | Enable verbose API logs |
+### Frontend (Vercel)
+1. Go to [Vercel](https://vercel.com) → **Add New Project** → Import your repository.
+2. Set the Root Directory to `frontend`.
+3. The `vercel.json` file is pre-configured for SPA routing.
+4. Add `VITE_API_URL` pointing to your Render backend URL in the Environment Variables.
+5. Deploy!
 
 ---
 
-## API Reference
+## 🔒 Security Highlights
 
-Interactive docs available at **`http://localhost:5000/api-docs`** when the server is running.
+Intix is built with production-grade security in mind:
+- **Strict Rate Limiting:** Prevents abuse of AI endpoints and authentication routes.
+- **Robust JWT Auth:** Implements short-lived access tokens and database-backed refresh tokens with server-side invalidation on logout.
+- **Data Sanitization:** Protects against NoSQL injection and XSS attacks.
+- **Secure File Handling:** Validates PDF uploads in-memory without saving sensitive files to disk.
 
-### Endpoints Summary
 
-| Method | Path | Auth | Description |
-|---|---|---|---|
-| `GET` | `/api/v1/health` | — | Server health check |
-| `POST` | `/api/v1/auth/register` | — | Create account |
-| `POST` | `/api/v1/auth/login` | — | Login + receive JWT pair |
-| `POST` | `/api/v1/auth/refresh` | — | Exchange refresh → access token |
-| `GET` | `/api/v1/auth/me` | 🔒 | Get current user |
-| `POST` | `/api/v1/ai/generate-question` | 🔒 | Generate interview question |
-| `POST` | `/api/v1/ai/evaluate-answer` | 🔒 | Evaluate a text answer |
-| `POST` | `/api/v1/resumes/analyze` | 🔒 | Upload PDF + get profile + interview plan |
-| `GET` | `/api/v1/resumes` | 🔒 | List user's resume profiles |
-| `GET` | `/api/v1/resumes/:id` | 🔒 | Get single resume profile |
-| `POST` | `/api/v1/interviews` | 🔒 | Start interview session |
-| `GET` | `/api/v1/interviews/:id/next-question` | 🔒 | Get next question |
-| `POST` | `/api/v1/interviews/:id/answer` | 🔒 | Submit answer (text or audio blob) |
-| `POST` | `/api/v1/interviews/:id/end` | 🔒 | End session + generate feedback + auto-report |
-| `GET` | `/api/v1/reports` | 🔒 | Paginated interview history |
-| `GET` | `/api/v1/reports/analytics` | 🔒 | Score trends + best role |
-| `GET` | `/api/v1/reports/:id` | 🔒 | Full report detail |
-
----
-
-## Deployment
-
-### Server → Render.com
-
-The `server/render.yaml` is pre-configured:
-
-1. Push to GitHub
-2. Go to [render.com](https://render.com) → **New Web Service** → **Connect repo**
-3. Render auto-detects `render.yaml` and creates the service
-4. Add secret env vars in the Render dashboard (marked `sync: false`)
-
-### Frontend → Vercel
-
-The `frontend/vercel.json` is pre-configured with the necessary SPA rewrite rules.
-
-1. Push to GitHub
-2. Go to [vercel.com](https://vercel.com) → **Add New Project** → **Import repo**
-3. Framework Preset: **Vite**
-4. Root Directory: **frontend**
-5. Build Command: `npm run build`
-6. Output Directory: `dist`
-7. Add `VITE_API_URL=https://your-render-service.onrender.com/api/v1` in Environment Variables.
-8. Deploy!
-
----
-
-## Interview Flow (End-to-End)
-
-```
-User registers / logs in
-    → JWTs stored in localStorage
-    → ProtectedRoute guards /interview, /report, /history
-
-User uploads resume (or skips)
-    → POST /resumes/analyze (pdf-parse → Groq → ResumeProfile saved)
-    → ResumeProfile._id stored in state
-
-Interview starts
-    → POST /interviews (uses resume plan if available)
-    → GET /interviews/:id/next-question (served from DB)
-    → User records answer → audio blob sent to POST /interviews/:id/answer
-        → Groq Whisper transcribes audio
-        → Groq LLM evaluates answer (score, clarity, relevance, feedback)
-        → useClientCV sends frame_metrics alongside
-        → scoringService calculates confidence
-    → Repeat for each question
-
-User ends interview
-    → POST /interviews/:id/end
-        → Session averages computed
-        → Groq generates final feedback (strengths, recommendations)
-        → Report auto-generated (fire-and-forget)
-    → Navigate to /report
-
-History page
-    → GET /reports + GET /reports/analytics
-    → Line chart shows score trends over time
-```
-
----
-
-## License
-
-MIT
